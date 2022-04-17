@@ -5,20 +5,33 @@ main {
 
 #todo-form {
   width: 100%;
+  position: relative;
 }
 
 #todo-input {
   width: 100%;
   font-family: inherit;
-  padding: 0.875rem 1.25rem;
+  padding: 1rem 1.25rem;
   border-radius: 5px;
   border: none;
   outline: none;
   margin-bottom: 1rem;
   color: var(--Light-theme-list-text);
+  padding-left: 52px;
 }
 
 #todo-input::placeholder {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--Light-theme-text);
+}
+
+#todo-form::before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--Light-theme-border-color);
+  border-radius: 50%;
+  left: 1.2rem;
+  top: 0.75rem;
 }
