@@ -4,6 +4,46 @@
   list-style: none;
 }
 
+.list-item-label {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.list-item-text::before {
+  position: absolute;
+  left: -0.5rem;
+  top: -0.25rem;
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--Light-theme-border-color);
+  margin-right: 0.75rem;
+}
+
+.list-item-text::after {
+  content: url("../images/icon-check.svg");
+  position: absolute;
+  top: 0.1rem;
+  left: -0.2rem;
+  cursor: pointer;
+}
+
+.list-item-text:hover::before {
+  border-color: var(--Check-Background);
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+}
+
+input[type="checkbox"]:checked + .list-item-text::before {
+  background: var(--Check-Background);
+}
+
 .list-item {
   background-color: #fff;
   padding: 0.875rem 1.25rem;
@@ -19,6 +59,8 @@
 
 .list-item-text {
   color: var(--Light-theme-list-text);
+  cursor: pointer;
+  padding-left: 1.5rem;
 }
 
 .delete-btn {
