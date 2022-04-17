@@ -45,6 +45,11 @@ input[type="checkbox"]:checked + .list-item-text::before {
   border: none;
 }
 
+input[type="checkbox"]:checked + .list-item-text {
+  color: var(--Light-theme-checked-text);
+  text-decoration: line-through;
+}
+
 .list-item {
   background-color: #fff;
   padding: 0.875rem 1.25rem;
