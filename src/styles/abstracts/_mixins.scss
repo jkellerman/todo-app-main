@@ -1,6 +1,14 @@
+@use "./variables" as a;
+
 @mixin flex-row-space-between {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+@mixin tablet {
+  @media (min-width: a.$tablet) {
+    @content;
+  }
 }

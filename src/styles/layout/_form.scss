@@ -1,6 +1,12 @@
+@use "../abstracts/" as a;
+
 main {
   width: 87.5%;
   margin: -6rem auto 0;
+  @include a.tablet {
+    max-width: 540px;
+    margin: -8rem auto 0;
+  }
 }
 
 #todo-form {
@@ -18,11 +24,19 @@ main {
   margin-bottom: 1rem;
   color: var(--Light-theme-list-text);
   padding-left: 52px;
+  @include a.tablet {
+    padding: 1.5rem;
+    padding-left: 55px;
+    font-size: 1.125rem;
+  }
 }
 
 #todo-input::placeholder {
   font-size: 0.7rem;
   color: var(--Light-theme-text);
+  @include a.tablet {
+    font-size: 1.125rem;
+  }
 }
 
 #todo-form::before {
@@ -34,4 +48,8 @@ main {
   border-radius: 50%;
   left: 1.2rem;
   top: 0.75rem;
+  @include a.tablet {
+    left: 1.45rem;
+    top: 1.4rem;
+  }
 }

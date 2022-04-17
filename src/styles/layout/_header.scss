@@ -7,11 +7,20 @@ header {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
+  @include a.tablet {
+    height: 300px;
+    background-image: url("../images/bg-desktop-light.jpg");
+  }
 }
 
 .header {
   @include a.flex-row-space-between;
   padding: 3rem 1.625rem;
+  @include a.tablet {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 5rem 0;
+  }
 }
 
 h1 {
