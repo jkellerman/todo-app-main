@@ -42,6 +42,7 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked + .list-item-text::before {
   background: var(--Check-Background);
+  border: none;
 }
 
 .list-item {
