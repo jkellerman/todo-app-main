@@ -1,0 +1,29 @@
+@use "../abstracts/" as a;
+
+#list {
+  list-style: none;
+}
+
+.list-item {
+  background-color: #fff;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.75rem;
+  border-bottom: 1px solid var(--Light-theme-border-color);
+  @include a.flex-row-space-between;
+}
+
+.list-item:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.list-item-text {
+  color: var(--Light-theme-list-text);
+}
+
+.delete-btn {
+  background-color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

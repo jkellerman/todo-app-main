@@ -18,12 +18,30 @@
       <div class="header">
         <h1>Todo</h1>
         <div class="toggle">
-          <img src="./images/icon-sun.svg" alt="sun-icon" class="toggle-sun" />
-          <img
-            src="./images/icon-moon.svg"
-            alt="moon-icon"
+          <svg
+            class="toggle-sun"
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+          >
+            <path
+              fill="#FFF"
+              fill-rule="evenodd"
+              d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"
+            />
+          </svg>
+          <svg
             class="toggle-moon"
-          />
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+          >
+            <path
+              fill="#FFF"
+              fill-rule="evenodd"
+              d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"
+            />
+          </svg>
         </div>
       </div>
     </header>
@@ -36,9 +54,11 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text>Complete online JavaScript course</span>
+            <span class="list-item-text" data-list-item-text
+              >Complete online JavaScript course</span
+            >
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
               <path
                 fill="#494C6B"
@@ -51,9 +71,11 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text>Jog around the park 3x</span>
+            <span class="list-item-text" data-list-item-text
+              >Jog around the park 3x</span
+            >
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
               <path
                 fill="#494C6B"
@@ -66,9 +88,11 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text>10 minute meditation</span>
+            <span class="list-item-text" data-list-item-text
+              >10 minute meditation</span
+            >
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
               <path
                 fill="#494C6B"
@@ -81,9 +105,11 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text>Read for 1 hour</span>
+            <span class="list-item-text" data-list-item-text
+              >Read for 1 hour</span
+            >
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
               <path
                 fill="#494C6B"
@@ -96,9 +122,11 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text>Pick up groceries</span>
+            <span class="list-item-text" data-list-item-text
+              >Pick up groceries</span
+            >
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
               <path
                 fill="#494C6B"
@@ -111,11 +139,11 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text
+            <span class="list-item-text" data-list-item-text
               >Complete Todo App on Frontend Mentor</span
             >
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18">
               <path
                 fill="#494C6B"
@@ -139,9 +167,9 @@
         <li class="list-item">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
-            <span data-list-item-text></span>
+            <span class="list-item-text" data-list-item-text></span>
           </label>
-          <button data-button-delete>
+          <button class="delete-btn" data-button-delete>
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
               <path
                 fill="#FFF"
