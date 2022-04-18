@@ -81,7 +81,6 @@ input[type="checkbox"]:checked + .list-item-text {
   border: none;
   outline: none;
   cursor: pointer;
-  width: 11.79px;
 }
 
 .todo-nav {
@@ -91,6 +90,7 @@ input[type="checkbox"]:checked + .list-item-text {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   margin-bottom: 1rem;
+  background-color: #fff;
 }
 
 .todo-container {

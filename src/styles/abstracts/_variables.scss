@@ -8,7 +8,7 @@
 
   // Light Theme
 
-  --Light-theme-box-shadow: hsl(0, 0%, 98%);
+  --Light-theme-background: hsl(0, 0%, 98%);
   --Light-theme-border-color: hsl(236, 33%, 92%);
   --Light-theme-checked-text: hsl(233, 11%, 84%);
   --Light-theme-text: hsl(236, 9%, 61%);
@@ -16,13 +16,14 @@
 
   //  Dark Theme
 
-  --Very-Dark-Blue: hsl(235, 21%, 11%);
-  --Very-Dark-Desaturated-Blue: hsl(235, 24%, 19%);
-  --Light-Grayish-Blue: hsl(234, 39%, 85%);
-  --Light-Grayish-Blue-hover: hsl(236, 33%, 92%);
+  --Dark-theme-background: hsl(235, 21%, 11%);
+  --Dark-theme-list-background: hsl(235, 24%, 19%);
+  --Dark-theme-list-text: hsl(234, 39%, 85%);
+  --Dark-theme-hover: hsl(236, 33%, 92%);
   --Dark-Grayish-Blue: hsl(234, 11%, 52%);
-  --Very-Dark-Grayish-Blue: hsl(233, 14%, 35%);
-  --Extra-Very-Dark-Grayish-Blue: hsl(237, 14%, 26%);
+  --Dark-theme-checked-text: hsl(233, 14%, 35%);
+  --Dark-theme-border-color: hsl(237, 14%, 26%);
+  --Dark-theme-text: hsl(235, 16%, 43%);
 }
 
 $tablet: 765px;
