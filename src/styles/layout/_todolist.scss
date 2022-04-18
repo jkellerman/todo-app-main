@@ -88,6 +88,11 @@ input[type="checkbox"]:checked + .list-item-text::after {
   cursor: pointer;
 }
 
+.delete-btn img {
+  width: 11.79px;
+  height: 11.79px;
+}
+
 .todo-nav {
   @include a.flex-row-space-between;
   font-size: 0.75rem;
@@ -105,9 +110,12 @@ input[type="checkbox"]:checked + .list-item-text::after {
   }
 }
 
+.clear {
+  cursor: pointer;
+}
+
 .clear:hover {
   color: var(--Light-theme-list-text);
-  cursor: pointer;
   transition: 0.25s ease-in-out;
 }
 
