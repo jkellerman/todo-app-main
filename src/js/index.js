@@ -4,20 +4,22 @@ const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
 const list = document.querySelector("#list");
 const template = document.querySelector("#list-item-template");
+const todos = [];
 
 // Add Todos
-// User will type in todo and submit
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const todoName = todoInput.value;
   if (todoName === "") return;
+  todos.push(todoName);
   renderTodo(todoName);
   todoInput.value = "";
 });
 
+// Save Todos
+
 // Delete Todos
 // Complete Todos
-// Save Todos
 // Load Todos
 
 function renderTodo(todoName) {
@@ -26,3 +28,5 @@ function renderTodo(todoName) {
   textElement.innerText = todoName;
   list.appendChild(templateClone);
 }
+
+function saveTodos() {}
