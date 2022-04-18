@@ -28,6 +28,7 @@
   top: 0.1rem;
   left: 0.3rem;
   cursor: pointer;
+  display: none;
   @include a.tablet {
     top: -0.175rem;
   }
@@ -51,6 +52,10 @@ input[type="checkbox"]:checked + .list-item-text::before {
 input[type="checkbox"]:checked + .list-item-text {
   color: var(--Light-theme-checked-text);
   text-decoration: line-through;
+}
+
+input[type="checkbox"]:checked + .list-item-text::after {
+  display: inline;
 }
 
 .list-item {
