@@ -113,6 +113,9 @@ all.forEach((element) => {
     newList.forEach((item) => {
       item.style.display = "flex";
     });
+    all.forEach((element) => {
+      element.style.color = "var(--Bright-Blue)";
+    });
   });
 });
 
@@ -128,6 +131,9 @@ active.forEach((element) => {
         item.style.display = "flex";
       }
     });
+    all.forEach((element) => {
+      element.style.color = "inherit";
+    });
   });
 });
 
@@ -142,6 +148,9 @@ completed.forEach((element) => {
       } else {
         item.style.display = "none";
       }
+    });
+    all.forEach((element) => {
+      element.style.color = "inherit";
     });
   });
 });
