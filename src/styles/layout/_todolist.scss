@@ -112,6 +112,13 @@ input[type="checkbox"]:checked + .list-item-text::after {
 
 .clear {
   cursor: pointer;
+  background-color: rgba($color: #fff, $alpha: 0);
+  border: none;
+  outline: none;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
 }
 
 .clear:hover {
@@ -122,11 +129,16 @@ input[type="checkbox"]:checked + .list-item-text::after {
 .filter-container {
   display: none;
 
-  span {
+  button {
     cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: rgba($color: #fff, $alpha: 0);
+    color: inherit;
+    font-weight: 700;
   }
 
-  span:hover {
+  button:hover {
     color: var(--Light-theme-list-text);
     transition: 0.25s ease-in-out;
   }
@@ -153,11 +165,16 @@ input[type="checkbox"]:checked + .list-item-text::after {
   box-shadow: 0px 10px 20px 0px var(--Light-theme-border-color);
   border-radius: 5px;
 
-  span {
+  button {
     cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: rgba($color: #fff, $alpha: 0);
+    color: inherit;
+    font-weight: 700;
   }
 
-  span:hover {
+  button:hover {
     color: var(--Light-theme-list-text);
     transition: 0.25s ease-in-out;
   }

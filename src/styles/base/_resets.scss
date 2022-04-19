@@ -25,3 +25,15 @@ footer {
 .attribution a {
   color: hsl(228, 45%, 44%);
 }
+
+.completed {
+  display: none;
+}
+
+.active {
+  display: none;
+}
+
+.all {
+  display: block;
+}

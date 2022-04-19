@@ -6,13 +6,17 @@ const listItems = Array.from(list.children);
 const template = document.querySelector("#list-item-template");
 const LOCAL_STORAGE_PREFIX = "FE_TODO_LIST";
 const TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-todos`;
-// On reload
+const DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-default-todos`;
+const REMOVED_DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-removed-default-todos`;
+const all = document.querySelectorAll(".all-btn");
+const active = document.querySelectorAll(".active-btn");
+const completed = document.querySelectorAll(".completed-btn");
+
+// ======== On reload
 let todos = loadTodos();
 todos.forEach((todo) => renderTodo(todo));
-const DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-default-todos`;
 let defaultTodos = loadDefaultTodos();
 defaultTodos.forEach((todo) => renderDefaultTodo(todo));
-const REMOVED_DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-removed-default-todos`;
 let removedDefaultTodos = loadRemovedDefaultTodos();
 removedDefaultTodos.forEach((todo) => {
   const removedDefaultTodoId = todo.id;
@@ -20,6 +24,48 @@ removedDefaultTodos.forEach((todo) => {
     (item) => item.dataset.todoId === removedDefaultTodoId
   );
   listItem.remove();
+});
+// ===========
+
+// When all button is clicked, show all items
+
+all.forEach((element) => {
+  element.addEventListener("click", () => {
+    const newList = Array.from(document.querySelector("#list").children);
+    newList.forEach((item) => {
+      item.style.display = "flex";
+    });
+  });
+});
+
+// When active button is clicked
+
+active.forEach((element) => {
+  element.addEventListener("click", () => {
+    const newList = Array.from(document.querySelector("#list").children);
+    newList.forEach((item) => {
+      if (item.firstElementChild.firstElementChild.checked == true) {
+        item.style.display = "none";
+      } else {
+        item.style.display = "flex";
+      }
+    });
+  });
+});
+
+// When completed button is clicked
+
+completed.forEach((element) => {
+  element.addEventListener("click", () => {
+    const newList = Array.from(document.querySelector("#list").children);
+    newList.forEach((item) => {
+      if (item.firstElementChild.firstElementChild.checked == true) {
+        item.style.display = "flex";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  });
 });
 
 list.addEventListener("change", (e) => {
