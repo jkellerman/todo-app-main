@@ -6,6 +6,7 @@ const listItems = Array.from(list.children);
 const template = document.querySelector("#list-item-template");
 const LOCAL_STORAGE_PREFIX = "FE_TODO_LIST";
 const TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-todos`;
+// On reload
 let todos = loadTodos();
 todos.forEach((todo) => renderTodo(todo));
 const DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-default-todos`;
@@ -57,9 +58,9 @@ list.addEventListener("click", (e) => {
 
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
-  // remove todo from screen
-  parent.remove();
   // remove todo from list
+  parent.remove();
+  // remove todo from localstorage
   todos = todos.filter((todo) => todo.id !== todoId);
   // save todos
   saveTodos();
@@ -75,9 +76,9 @@ list.addEventListener("click", (e) => {
     complete: false,
     id: parent.dataset.todoId,
   };
-  // remove todo from screen
+  // remove todo from list
   parent.remove();
-  // add to removed list
+  // add to removed list in localstorage
   removedDefaultTodos.push(removedDefaultTodo);
   // save
   saveRemovedDefaultTodos();
