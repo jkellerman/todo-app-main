@@ -27,7 +27,7 @@ list.addEventListener("change", (e) => {
   if (!e.target.matches(["[data-list-item-checkbox]"])) return;
   if (!listItems.includes(e.target.closest(".list-item"))) return;
 
-  //   add default checked to local storage
+  //   add default todos to local storage
   const parent = e.target.closest(".list-item");
   const defaultTodo = {
     name: parent.innerText,
