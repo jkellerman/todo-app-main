@@ -11,6 +11,15 @@ todos.forEach((todo) => renderTodo(todo));
 const DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-default-todos`;
 let defaultTodos = loadDefaultTodos();
 defaultTodos.forEach((todo) => renderDefaultTodo(todo));
+const REMOVED_DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-removed-default-todos`;
+let removedDefaultTodos = loadRemovedDefaultTodos();
+removedDefaultTodos.forEach((todo) => {
+  const removedDefaultTodoId = todo.id;
+  const listItem = listItems.find(
+    (item) => item.dataset.todoId === removedDefaultTodoId
+  );
+  listItem.remove();
+});
 
 list.addEventListener("change", (e) => {
   if (!e.target.matches(["[data-list-item-checkbox]"])) return;
@@ -44,6 +53,7 @@ list.addEventListener("change", (e) => {
 
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
+  if (listItems.includes(e.target.closest(".list-item"))) return;
 
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
@@ -53,6 +63,24 @@ list.addEventListener("click", (e) => {
   todos = todos.filter((todo) => todo.id !== todoId);
   // save todos
   saveTodos();
+});
+
+list.addEventListener("click", (e) => {
+  if (!e.target.matches("[data-button-delete]")) return;
+  if (!listItems.includes(e.target.closest(".list-item"))) return;
+
+  const parent = e.target.closest(".list-item");
+  const removedDefaultTodo = {
+    name: parent.innerText,
+    complete: false,
+    id: parent.dataset.todoId,
+  };
+  // remove todo from screen
+  parent.remove();
+  // add to removed list
+  removedDefaultTodos.push(removedDefaultTodo);
+  // save
+  saveRemovedDefaultTodos();
 });
 
 form.addEventListener("submit", (e) => {
@@ -97,11 +125,22 @@ function saveDefaultTodos() {
   localStorage.setItem(DEFAULT_TODOS_STORAGE_KEY, JSON.stringify(defaultTodos));
 }
 
+function saveRemovedDefaultTodos() {
+  localStorage.setItem(
+    REMOVED_DEFAULT_TODOS_STORAGE_KEY,
+    JSON.stringify(removedDefaultTodos)
+  );
+}
+
 function loadTodos() {
   const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [];
 }
 function loadDefaultTodos() {
   const todosString = localStorage.getItem(DEFAULT_TODOS_STORAGE_KEY);
+  return JSON.parse(todosString) || [];
+}
+function loadRemovedDefaultTodos() {
+  const todosString = localStorage.getItem(REMOVED_DEFAULT_TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [];
 }
