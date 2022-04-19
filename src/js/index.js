@@ -11,6 +11,7 @@ const REMOVED_DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-removed-defau
 const all = document.querySelectorAll(".all-btn");
 const active = document.querySelectorAll(".active-btn");
 const completed = document.querySelectorAll(".completed-btn");
+const clear = document.querySelector("#clear");
 
 // ======== On reload
 let todos = loadTodos();
@@ -26,47 +27,6 @@ removedDefaultTodos.forEach((todo) => {
   listItem.remove();
 });
 // ===========
-
-// When all button is clicked, show all items
-
-all.forEach((element) => {
-  element.addEventListener("click", () => {
-    const newList = Array.from(document.querySelector("#list").children);
-    newList.forEach((item) => {
-      item.style.display = "flex";
-    });
-  });
-});
-
-// When active button is clicked
-
-active.forEach((element) => {
-  element.addEventListener("click", () => {
-    const newList = Array.from(document.querySelector("#list").children);
-    newList.forEach((item) => {
-      if (item.firstElementChild.firstElementChild.checked == true) {
-        item.style.display = "none";
-      } else {
-        item.style.display = "flex";
-      }
-    });
-  });
-});
-
-// When completed button is clicked
-
-completed.forEach((element) => {
-  element.addEventListener("click", () => {
-    const newList = Array.from(document.querySelector("#list").children);
-    newList.forEach((item) => {
-      if (item.firstElementChild.firstElementChild.checked == true) {
-        item.style.display = "flex";
-      } else {
-        item.style.display = "none";
-      }
-    });
-  });
-});
 
 list.addEventListener("change", (e) => {
   if (!e.target.matches(["[data-list-item-checkbox]"])) return;
@@ -143,6 +103,81 @@ form.addEventListener("submit", (e) => {
   renderTodo(newTodo);
   saveTodos();
   todoInput.value = "";
+});
+
+// When all button is clicked, show all items
+
+all.forEach((element) => {
+  element.addEventListener("click", () => {
+    const newList = Array.from(document.querySelector("#list").children);
+    newList.forEach((item) => {
+      item.style.display = "flex";
+    });
+  });
+});
+
+// When active button is clicked
+
+active.forEach((element) => {
+  element.addEventListener("click", () => {
+    const newList = Array.from(document.querySelector("#list").children);
+    newList.forEach((item) => {
+      if (item.firstElementChild.firstElementChild.checked == true) {
+        item.style.display = "none";
+      } else {
+        item.style.display = "flex";
+      }
+    });
+  });
+});
+
+// When completed button is clicked
+
+completed.forEach((element) => {
+  element.addEventListener("click", () => {
+    const newList = Array.from(document.querySelector("#list").children);
+    newList.forEach((item) => {
+      if (item.firstElementChild.firstElementChild.checked == true) {
+        item.style.display = "flex";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  });
+});
+
+// clear completed button is clicked
+
+clear.addEventListener("click", () => {
+  const newList = Array.from(document.querySelector("#list").children);
+  newList.forEach((item) => {
+    if (listItems.includes(item.closest(".list-item"))) return;
+    if (item.firstElementChild.firstElementChild.checked == true) {
+      const itemId = item.dataset.todoId;
+      item.remove();
+      todos = todos.filter((todo) => todo.id !== itemId);
+      // save todos
+      saveTodos();
+    }
+  });
+});
+
+clear.addEventListener("click", () => {
+  const newList = Array.from(document.querySelector("#list").children);
+  newList.forEach((item) => {
+    if (!listItems.includes(item.closest(".list-item"))) return;
+    if (item.firstElementChild.firstElementChild.checked == true) {
+      const removedDefaultTodo = {
+        name: item.innerText,
+        complete: false,
+        id: item.dataset.todoId,
+      };
+      item.remove();
+      removedDefaultTodos.push(removedDefaultTodo);
+
+      saveRemovedDefaultTodos();
+    }
+  });
 });
 
 function renderTodo(todo) {

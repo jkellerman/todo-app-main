@@ -110,7 +110,7 @@ input[type="checkbox"]:checked + .list-item-text::after {
   }
 }
 
-.clear {
+#clear {
   cursor: pointer;
   background-color: rgba($color: #fff, $alpha: 0);
   border: none;
@@ -121,7 +121,7 @@ input[type="checkbox"]:checked + .list-item-text::after {
   font-family: inherit;
 }
 
-.clear:hover {
+#clear:hover {
   color: var(--Light-theme-list-text);
   transition: 0.25s ease-in-out;
 }
