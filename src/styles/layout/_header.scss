@@ -16,6 +16,7 @@ header {
 .header {
   @include a.flex-row-space-between;
   padding: 3rem 1.625rem;
+
   @include a.tablet {
     max-width: 540px;
     margin: 0 auto;

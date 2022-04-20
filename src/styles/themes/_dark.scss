@@ -74,3 +74,75 @@
     color: var(--Dark-theme-hover);
   }
 }
+
+.dark-mode {
+  color: var(--Dark-theme-text);
+  background-color: var(--Dark-theme-background);
+
+  header {
+    background-image: url("../images/bg-mobile-dark.jpg");
+
+    @include a.tablet {
+      background-image: url("../images/bg-desktop-dark.jpg");
+    }
+  }
+  .toggle-sun {
+    display: inline-block;
+  }
+
+  .toggle-moon {
+    display: none;
+  }
+  #todo-input {
+    background-color: var(--Dark-theme-list-background);
+    color: var(--Dark-theme-list-text);
+  }
+
+  #todo-form::before {
+    border: 1px solid var(--Dark-theme-border-color);
+  }
+
+  .todo-container {
+    box-shadow: none;
+  }
+
+  .list-item-text::before {
+    border: 1px solid var(--Dark-theme-border-color);
+  }
+
+  .list-item {
+    background-color: var(--Dark-theme-list-background);
+    border-bottom: 1px solid var(--Dark-theme-border-color);
+  }
+
+  .list-item-text {
+    color: var(--Dark-theme-list-text);
+  }
+
+  input[type="checkbox"]:checked + .list-item-text {
+    color: var(--Dark-theme-checked-text);
+    text-decoration: line-through;
+  }
+
+  .delete-btn {
+    background-color: var(--Dark-theme-list-background);
+  }
+
+  .todo-nav {
+    background-color: var(--Dark-theme-list-background);
+  }
+
+  #clear:hover {
+    color: var(--Dark-theme-hover);
+  }
+
+  .filter-container__mobile {
+    background-color: var(--Dark-theme-list-background);
+    box-shadow: none;
+  }
+
+  .filter-container__mobile button:hover,
+  .filter-container button:hover {
+    color: var(--Dark-theme-hover);
+  }
+}

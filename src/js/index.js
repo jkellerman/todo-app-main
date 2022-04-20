@@ -14,6 +14,7 @@ const active = document.querySelectorAll(".active-btn");
 const completed = document.querySelectorAll(".completed-btn");
 const clear = document.querySelector("#clear");
 const itemsLeft = document.querySelector("[data-items-left]");
+const toggle = document.querySelector(".toggle");
 
 // ======== On reload
 let todos = loadTodos();
@@ -30,6 +31,7 @@ removedDefaultTodos.forEach((todo) => {
 });
 let newTotal = loadItemsTotal();
 itemsLeft.innerText = `${newTotal} items left`;
+
 // ===========
 
 list.addEventListener("change", (e) => {
@@ -212,6 +214,21 @@ clear.addEventListener("click", () => {
       saveItemsTotal();
     }
   });
+});
+
+// Theme switcher
+
+toggle.addEventListener("click", () => {
+  const body = document.querySelector("body");
+  if (window.matchMedia("(prefers-color-scheme:dark)").matches) {
+    body.classList.remove("dark-mode");
+    body.classList.toggle("light-mode");
+  } else if (window.matchMedia("(prefers-color-scheme:light)").matches) {
+    body.classList.remove("light-mode");
+    body.classList.toggle("dark-mode");
+  } else {
+    body.classList.toggle("dark-mode");
+  }
 });
 
 function renderTodo(todo) {

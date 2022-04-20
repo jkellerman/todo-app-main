@@ -78,3 +78,79 @@
     color: var(--Light-theme-list-text);
   }
 }
+
+.light-mode {
+  color: var(--Light-theme-text);
+  background-color: var(--Light-theme-background);
+
+  header {
+    background-image: url("../images/bg-mobile-light.jpg");
+
+    @include a.tablet {
+      background-image: url("../images/bg-desktop-light.jpg");
+    }
+  }
+  .toggle-sun {
+    display: none;
+  }
+
+  .toggle-moon {
+    display: inline-block;
+  }
+
+  #todo-input {
+    background-color: #fff;
+    color: var(--Light-theme-list-text);
+  }
+
+  #todo-form::before {
+    border: 1px solid var(--Light-theme-border-color);
+  }
+
+  .todo-container {
+    box-shadow: 0px 20px 20px 0px var(--Light-theme-border-color);
+  }
+
+  .list-item-text::before {
+    border: 1px solid var(--Light-theme-border-color);
+  }
+
+  .list-item {
+    background-color: #fff;
+    border-bottom: 1px solid var(--Light-theme-border-color);
+  }
+
+  .list-item-text {
+    color: var(--Light-theme-list-text);
+  }
+
+  input[type="checkbox"]:checked + .list-item-text {
+    color: var(--Light-theme-checked-text);
+    text-decoration: line-through;
+  }
+
+  .delete-btn {
+    background-color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .todo-nav {
+    background-color: #fff;
+  }
+
+  #clear:hover {
+    color: var(--Light-theme-list-text);
+  }
+
+  .filter-container__mobile {
+    box-shadow: 0px 10px 20px 0px var(--Light-theme-border-color);
+    background-color: #fff;
+  }
+
+  .filter-container__mobile button:hover,
+  .filter-container button:hover {
+    color: var(--Light-theme-list-text);
+  }
+}
