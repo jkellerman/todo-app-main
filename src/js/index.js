@@ -8,10 +8,12 @@ const LOCAL_STORAGE_PREFIX = "FE_TODO_LIST";
 const TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-todos`;
 const DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-default-todos`;
 const REMOVED_DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-removed-default-todos`;
+const ITEMS_LEFT_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-items-left-total`;
 const all = document.querySelectorAll(".all-btn");
 const active = document.querySelectorAll(".active-btn");
 const completed = document.querySelectorAll(".completed-btn");
 const clear = document.querySelector("#clear");
+const itemsLeft = document.querySelector("[data-items-left]");
 
 // ======== On reload
 let todos = loadTodos();
@@ -26,6 +28,8 @@ removedDefaultTodos.forEach((todo) => {
   );
   listItem.remove();
 });
+let newTotal = loadItemsTotal();
+itemsLeft.innerText = `${newTotal} items left`;
 // ===========
 
 list.addEventListener("change", (e) => {
@@ -61,21 +65,25 @@ list.addEventListener("change", (e) => {
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
   if (listItems.includes(e.target.closest(".list-item"))) return;
-
+  let listTotal = document.querySelector("#list").children.length;
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
   // remove todo from list
   parent.remove();
   // remove todo from localstorage
   todos = todos.filter((todo) => todo.id !== todoId);
-  // save todos
   saveTodos();
+  //   update items left
+  listTotal--;
+  itemsLeft.innerText = `${listTotal} items left`;
+  newTotal.splice(0, 1, listTotal);
+  saveItemsTotal();
 });
 
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
   if (!listItems.includes(e.target.closest(".list-item"))) return;
-
+  let listTotal = document.querySelector("#list").children.length;
   const parent = e.target.closest(".list-item");
   const removedDefaultTodo = {
     name: parent.innerText,
@@ -86,13 +94,18 @@ list.addEventListener("click", (e) => {
   parent.remove();
   // add to removed list in localstorage
   removedDefaultTodos.push(removedDefaultTodo);
-  // save
   saveRemovedDefaultTodos();
+  //   update items left
+  listTotal--;
+  itemsLeft.innerText = `${listTotal} items left`;
+  newTotal.splice(0, 1, listTotal);
+  saveItemsTotal();
 });
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const todoName = todoInput.value;
+  let listTotal = document.querySelector("#list").children.length;
   if (todoName === "") return;
   const newTodo = {
     name: todoName,
@@ -103,6 +116,10 @@ form.addEventListener("submit", (e) => {
   renderTodo(newTodo);
   saveTodos();
   todoInput.value = "";
+  listTotal++;
+  itemsLeft.innerText = `${listTotal} items left`;
+  newTotal.splice(0, 1, listTotal);
+  saveItemsTotal();
 });
 
 // When all button is clicked, show all items
@@ -159,20 +176,25 @@ completed.forEach((element) => {
 
 clear.addEventListener("click", () => {
   const newList = Array.from(document.querySelector("#list").children);
+  let listTotal = document.querySelector("#list").children.length;
   newList.forEach((item) => {
     if (listItems.includes(item.closest(".list-item"))) return;
     if (item.firstElementChild.firstElementChild.checked == true) {
       const itemId = item.dataset.todoId;
       item.remove();
       todos = todos.filter((todo) => todo.id !== itemId);
-      // save todos
       saveTodos();
+      listTotal--;
+      itemsLeft.innerText = `${listTotal} items left`;
+      newTotal.splice(0, 1, listTotal);
+      saveItemsTotal();
     }
   });
 });
 
 clear.addEventListener("click", () => {
   const newList = Array.from(document.querySelector("#list").children);
+  let listTotal = document.querySelector("#list").children.length;
   newList.forEach((item) => {
     if (!listItems.includes(item.closest(".list-item"))) return;
     if (item.firstElementChild.firstElementChild.checked == true) {
@@ -183,8 +205,11 @@ clear.addEventListener("click", () => {
       };
       item.remove();
       removedDefaultTodos.push(removedDefaultTodo);
-
       saveRemovedDefaultTodos();
+      listTotal--;
+      itemsLeft.innerText = `${listTotal} items left`;
+      newTotal.splice(0, 1, listTotal);
+      saveItemsTotal();
     }
   });
 });
@@ -223,6 +248,10 @@ function saveRemovedDefaultTodos() {
   );
 }
 
+function saveItemsTotal() {
+  localStorage.setItem(ITEMS_LEFT_STORAGE_KEY, JSON.stringify(newTotal));
+}
+
 function loadTodos() {
   const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [];
@@ -234,4 +263,9 @@ function loadDefaultTodos() {
 function loadRemovedDefaultTodos() {
   const todosString = localStorage.getItem(REMOVED_DEFAULT_TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [];
+}
+
+function loadItemsTotal() {
+  const todosString = localStorage.getItem(ITEMS_LEFT_STORAGE_KEY);
+  return JSON.parse(todosString) || [6];
 }
