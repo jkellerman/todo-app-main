@@ -42,8 +42,8 @@
         />
       </form>
       <div class="todo-container">
-        <ul id="list">
-          <li class="list-item" data-todo-id="0001">
+        <ul id="list" class="drag-container">
+          <li class="list-item draggable" draggable="true" data-todo-id="0001">
             <label class="list-item-label">
               <input type="checkbox" data-list-item-checkbox />
               <span class="list-item-text" data-list-item-text
@@ -58,7 +58,7 @@
               />
             </button>
           </li>
-          <li class="list-item" data-todo-id="0002">
+          <li class="list-item draggable" draggable="true" data-todo-id="0002">
             <label class="list-item-label">
               <input type="checkbox" data-list-item-checkbox />
               <span class="list-item-text" data-list-item-text
@@ -73,7 +73,7 @@
               />
             </button>
           </li>
-          <li class="list-item" data-todo-id="0003">
+          <li class="list-item draggable" draggable="true" data-todo-id="0003">
             <label class="list-item-label">
               <input type="checkbox" data-list-item-checkbox />
               <span class="list-item-text" data-list-item-text
@@ -88,7 +88,7 @@
               />
             </button>
           </li>
-          <li class="list-item" data-todo-id="0004">
+          <li class="list-item draggable" draggable="true" data-todo-id="0004">
             <label class="list-item-label">
               <input type="checkbox" data-list-item-checkbox />
               <span class="list-item-text" data-list-item-text
@@ -103,7 +103,7 @@
               />
             </button>
           </li>
-          <li class="list-item" data-todo-id="0005">
+          <li class="list-item draggable" draggable="true" data-todo-id="0005">
             <label class="list-item-label">
               <input type="checkbox" data-list-item-checkbox />
               <span class="list-item-text" data-list-item-text
@@ -118,7 +118,7 @@
               />
             </button>
           </li>
-          <li class="list-item" data-todo-id="0006">
+          <li class="list-item draggable" draggable="true" data-todo-id="0006">
             <label class="list-item-label">
               <input type="checkbox" data-list-item-checkbox />
               <span class="list-item-text" data-list-item-text
@@ -152,7 +152,7 @@
       <div class="bottom-text">Drag and drop to reorder list</div>
 
       <template id="list-item-template">
-        <li class="list-item" data-todo-id="">
+        <li class="list-item draggable" draggable="true" data-todo-id="">
           <label class="list-item-label">
             <input type="checkbox" data-list-item-checkbox />
             <span class="list-item-text" data-list-item-text></span>

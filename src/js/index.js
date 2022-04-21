@@ -15,6 +15,8 @@ const completed = document.querySelectorAll(".completed-btn");
 const clear = document.querySelector("#clear");
 const itemsLeft = document.querySelector("[data-items-left]");
 const toggle = document.querySelector(".toggle");
+const draggables = document.querySelectorAll(".draggable");
+const dragContainer = document.querySelector(".drag-container");
 
 // ======== On reload
 let todos = loadTodos();
@@ -103,6 +105,8 @@ list.addEventListener("click", (e) => {
   newTotal.splice(0, 1, listTotal);
   saveItemsTotal();
 });
+
+// submit new todo
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -231,6 +235,27 @@ toggle.addEventListener("click", () => {
   }
 });
 
+// draggables
+
+draggables.forEach((draggable) => {
+  draggable.addEventListener("dragstart", () => {
+    draggable.classList.add("dragging");
+  });
+  draggable.addEventListener("dragend", () => {
+    draggable.classList.remove("dragging");
+  });
+});
+
+dragContainer.addEventListener("dragover", (e) => {
+  e.preventDefault(); //allow to drop inside container
+  const afterElement = getDragAfterElement(dragContainer, e.clientY);
+  const draggable = document.querySelector(".dragging");
+  console.log(afterElement);
+  if (afterElement != null) {
+    dragContainer.insertBefore(draggable, afterElement);
+  }
+});
+
 function renderTodo(todo) {
   const templateClone = template.content.cloneNode(true);
   const listItem = templateClone.querySelector(".list-item");
@@ -285,4 +310,23 @@ function loadRemovedDefaultTodos() {
 function loadItemsTotal() {
   const todosString = localStorage.getItem(ITEMS_LEFT_STORAGE_KEY);
   return JSON.parse(todosString) || [6];
+}
+
+function getDragAfterElement(container, y) {
+  const draggableElements = [
+    ...container.querySelectorAll(".draggable:not(.dragging)"),
+  ];
+  return draggableElements.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      console.log(offset);
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    { offset: Number.NEGATIVE_INFINITY }
+  ).element;
 }

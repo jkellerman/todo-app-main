@@ -205,3 +205,12 @@ input[type="checkbox"]:checked + .list-item-text::after {
   text-align: center;
   font-size: 0.875rem;
 }
+
+.draggable {
+  transition: unset;
+  cursor: move;
+}
+
+.draggable.dragging {
+  opacity: 0.5;
+}
