@@ -2,23 +2,30 @@ import "../styles/main.scss";
 const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
 const list = document.querySelector("#list");
-const listItems = Array.from(list.children);
+let listItems = document.querySelectorAll(".list-item");
 const template = document.querySelector("#list-item-template");
 const LOCAL_STORAGE_PREFIX = "FE_TODO_LIST";
 const TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-todos`;
 const DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-default-todos`;
 const REMOVED_DEFAULT_TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-removed-default-todos`;
 const ITEMS_LEFT_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-items-left-total`;
+const REORDERED_LIST_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-reordered-list`;
 const all = document.querySelectorAll(".all-btn");
 const active = document.querySelectorAll(".active-btn");
 const completed = document.querySelectorAll(".completed-btn");
 const clear = document.querySelector("#clear");
 const itemsLeft = document.querySelector("[data-items-left]");
 const toggle = document.querySelector(".toggle");
-const draggables = document.querySelectorAll(".draggable");
-const dragContainer = document.querySelector(".drag-container");
+let newList = list.children;
 
 // ======== On reload
+let reorderedList = loadReorderedList();
+if (reorderedList.length > 0) {
+  listItems.forEach((item) => {
+    item.remove();
+  });
+}
+reorderedList.forEach((todo) => renderTodo(todo));
 let todos = loadTodos();
 todos.forEach((todo) => renderTodo(todo));
 let defaultTodos = loadDefaultTodos();
@@ -26,7 +33,7 @@ defaultTodos.forEach((todo) => renderDefaultTodo(todo));
 let removedDefaultTodos = loadRemovedDefaultTodos();
 removedDefaultTodos.forEach((todo) => {
   const removedDefaultTodoId = todo.id;
-  const listItem = listItems.find(
+  const listItem = [...listItems].find(
     (item) => item.dataset.todoId === removedDefaultTodoId
   );
   listItem.remove();
@@ -38,7 +45,7 @@ itemsLeft.innerText = `${newTotal} items left`;
 
 list.addEventListener("change", (e) => {
   if (!e.target.matches(["[data-list-item-checkbox]"])) return;
-  if (listItems.includes(e.target.closest(".list-item"))) return;
+  if ([...listItems].includes(e.target.closest(".list-item"))) return;
   // Get the todo that is checked
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
@@ -49,7 +56,7 @@ list.addEventListener("change", (e) => {
 
 list.addEventListener("change", (e) => {
   if (!e.target.matches(["[data-list-item-checkbox]"])) return;
-  if (!listItems.includes(e.target.closest(".list-item"))) return;
+  if (![...listItems].includes(e.target.closest(".list-item"))) return;
 
   //   add default todos to local storage
   const parent = e.target.closest(".list-item");
@@ -68,7 +75,7 @@ list.addEventListener("change", (e) => {
 
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
-  if (listItems.includes(e.target.closest(".list-item"))) return;
+  if ([...listItems].includes(e.target.closest(".list-item"))) return;
   let listTotal = document.querySelector("#list").children.length;
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
@@ -86,7 +93,7 @@ list.addEventListener("click", (e) => {
 
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
-  if (!listItems.includes(e.target.closest(".list-item"))) return;
+  if (![...listItems].includes(e.target.closest(".list-item"))) return;
   let listTotal = document.querySelector("#list").children.length;
   const parent = e.target.closest(".list-item");
   const removedDefaultTodo = {
@@ -122,6 +129,7 @@ form.addEventListener("submit", (e) => {
   renderTodo(newTodo);
   saveTodos();
   todoInput.value = "";
+  //   update items left
   listTotal++;
   itemsLeft.innerText = `${listTotal} items left`;
   newTotal.splice(0, 1, listTotal);
@@ -132,7 +140,8 @@ form.addEventListener("submit", (e) => {
 
 all.forEach((element) => {
   element.addEventListener("click", () => {
-    const newList = Array.from(document.querySelector("#list").children);
+    const newList = [...document.querySelector("#list").children];
+
     newList.forEach((item) => {
       item.style.display = "flex";
     });
@@ -142,11 +151,12 @@ all.forEach((element) => {
   });
 });
 
-// When active button is clicked
+// When active button is clicked show active items
 
 active.forEach((element) => {
   element.addEventListener("click", () => {
-    const newList = Array.from(document.querySelector("#list").children);
+    const newList = [...document.querySelector("#list").children];
+
     newList.forEach((item) => {
       if (item.firstElementChild.firstElementChild.checked == true) {
         item.style.display = "none";
@@ -160,11 +170,12 @@ active.forEach((element) => {
   });
 });
 
-// When completed button is clicked
+// When completed button is clicked show completed items
 
 completed.forEach((element) => {
   element.addEventListener("click", () => {
-    const newList = Array.from(document.querySelector("#list").children);
+    const newList = [...document.querySelector("#list").children];
+
     newList.forEach((item) => {
       if (item.firstElementChild.firstElementChild.checked == true) {
         item.style.display = "flex";
@@ -178,13 +189,14 @@ completed.forEach((element) => {
   });
 });
 
-// clear completed button is clicked
+// clear completed button is clicked remove items
 
 clear.addEventListener("click", () => {
-  const newList = Array.from(document.querySelector("#list").children);
+  const newList = [...document.querySelector("#list").children];
+
   let listTotal = document.querySelector("#list").children.length;
   newList.forEach((item) => {
-    if (listItems.includes(item.closest(".list-item"))) return;
+    if ([...listItems].includes(item.closest(".list-item"))) return;
     if (item.firstElementChild.firstElementChild.checked == true) {
       const itemId = item.dataset.todoId;
       item.remove();
@@ -199,10 +211,10 @@ clear.addEventListener("click", () => {
 });
 
 clear.addEventListener("click", () => {
-  const newList = Array.from(document.querySelector("#list").children);
+  const newList = [...document.querySelector("#list").children];
   let listTotal = document.querySelector("#list").children.length;
   newList.forEach((item) => {
-    if (!listItems.includes(item.closest(".list-item"))) return;
+    if (![...listItems].includes(item.closest(".list-item"))) return;
     if (item.firstElementChild.firstElementChild.checked == true) {
       const removedDefaultTodo = {
         name: item.innerText,
@@ -235,26 +247,7 @@ toggle.addEventListener("click", () => {
   }
 });
 
-// draggables
-
-draggables.forEach((draggable) => {
-  draggable.addEventListener("dragstart", () => {
-    draggable.classList.add("dragging");
-  });
-  draggable.addEventListener("dragend", () => {
-    draggable.classList.remove("dragging");
-  });
-});
-
-dragContainer.addEventListener("dragover", (e) => {
-  e.preventDefault(); //allow to drop inside container
-  const afterElement = getDragAfterElement(dragContainer, e.clientY);
-  const draggable = document.querySelector(".dragging");
-  console.log(afterElement);
-  if (afterElement != null) {
-    dragContainer.insertBefore(draggable, afterElement);
-  }
-});
+// functions
 
 function renderTodo(todo) {
   const templateClone = template.content.cloneNode(true);
@@ -269,9 +262,8 @@ function renderTodo(todo) {
 
 function renderDefaultTodo(todo) {
   const defaultTodoId = todo.id;
-  const listItem = listItems.find(
-    (item) => item.dataset.todoId === defaultTodoId
-  );
+  const list = [...listItems];
+  const listItem = list.find((item) => item.dataset.todoId === defaultTodoId);
   const listItemChild = listItem.firstElementChild.firstElementChild;
   listItemChild.checked = todo.complete;
 }
@@ -294,6 +286,13 @@ function saveItemsTotal() {
   localStorage.setItem(ITEMS_LEFT_STORAGE_KEY, JSON.stringify(newTotal));
 }
 
+function saveReorderedList() {
+  localStorage.setItem(
+    REORDERED_LIST_STORAGE_KEY,
+    JSON.stringify(reorderedList)
+  );
+}
+
 function loadTodos() {
   const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [];
@@ -311,16 +310,59 @@ function loadItemsTotal() {
   const todosString = localStorage.getItem(ITEMS_LEFT_STORAGE_KEY);
   return JSON.parse(todosString) || [6];
 }
+function loadReorderedList() {
+  const todosString = localStorage.getItem(REORDERED_LIST_STORAGE_KEY);
+  return JSON.parse(todosString) || [];
+}
+
+[...newList].forEach((draggable) => {
+  draggable.addEventListener("dragstart", () => {
+    draggable.classList.add("dragging");
+  });
+  draggable.addEventListener("dragend", () => {
+    draggable.classList.remove("dragging");
+    const newList = [...list.children];
+    draggable.classList.remove("dragging");
+    reorderedList = [];
+    newList.forEach((item) => {
+      const reorderedTodo = {
+        name: item.innerText,
+        complete: item.firstElementChild.firstElementChild.checked,
+        id: item.dataset.todoId,
+      };
+      reorderedList.push(reorderedTodo);
+      saveReorderedList();
+    });
+  });
+});
+
+list.addEventListener("dragover", (e) => {
+  e.preventDefault(); //allow to drop inside container
+  const afterElement = getDragAfterElement(list, e.clientY);
+  const draggable = document.querySelector(".dragging");
+  list.insertBefore(draggable, afterElement);
+});
+
+function saveReorderedList() {
+  localStorage.setItem(
+    REORDERED_LIST_STORAGE_KEY,
+    JSON.stringify(reorderedList)
+  );
+}
+
+function loadReorderedList() {
+  const todosString = localStorage.getItem(REORDERED_LIST_STORAGE_KEY);
+  return JSON.parse(todosString) || [];
+}
 
 function getDragAfterElement(container, y) {
   const draggableElements = [
-    ...container.querySelectorAll(".draggable:not(.dragging)"),
+    ...container.querySelectorAll(".list-item:not(.dragging)"),
   ];
   return draggableElements.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();
       const offset = y - box.top - box.height / 2;
-      console.log(offset);
       if (offset < 0 && offset > closest.offset) {
         return { offset: offset, element: child };
       } else {
