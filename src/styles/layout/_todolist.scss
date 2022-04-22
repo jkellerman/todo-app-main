@@ -71,10 +71,6 @@ input[type="checkbox"]:checked + .list-item-text::after {
   }
 }
 
-.list-item.dragging {
-  opacity: 0.5;
-}
-
 .list-item:first-of-type {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -91,12 +87,15 @@ input[type="checkbox"]:checked + .list-item-text::after {
   border: none;
   outline: none;
   cursor: pointer;
-}
-
-.delete-btn img {
+  background-image: url("../images/icon-cross.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 11.79px;
   height: 11.79px;
 }
+
+// .delete-btn img {
+// }
 
 .todo-nav {
   @include a.flex-row-space-between;
@@ -209,4 +208,8 @@ input[type="checkbox"]:checked + .list-item-text::after {
   width: 100%;
   text-align: center;
   font-size: 0.875rem;
+}
+
+.over {
+  opacity: 0.5;
 }
