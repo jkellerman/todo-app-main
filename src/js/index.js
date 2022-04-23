@@ -1,5 +1,6 @@
 import "../styles/main.scss";
 import { sampleTodos } from "./sampletodos";
+import Sortable from "sortablejs";
 
 const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
@@ -12,8 +13,9 @@ const completed = document.querySelectorAll(".completed-btn");
 const clear = document.querySelector("#clear");
 const itemsLeft = document.querySelector("[data-items-left]");
 const toggle = document.querySelector(".toggle");
-// Store listItems
 const listItems = [];
+
+// ==========  On page reload
 
 let todos = loadTodos();
 todos.forEach((todo) => {
@@ -21,9 +23,9 @@ todos.forEach((todo) => {
   saveTodos();
 });
 
-// items left
-
 itemsLeft.innerText = `${todos.length} items left`;
+
+//  ==========================
 
 // Submit new todo
 form.addEventListener("submit", (e) => {
@@ -64,17 +66,14 @@ list.addEventListener("click", (e) => {
   let listTotal = list.children.length;
   const parent = e.target.closest(".list-item");
   const todoId = parent.dataset.todoId;
-  // remove todo from list
-  parent.remove();
-  // remove todo from localstorage
-  todos = todos.filter((todo) => todo.id !== todoId);
+  parent.remove(); // remove todo from list
+  todos = todos.filter((todo) => todo.id !== todoId); // remove todo from localstorage
   saveTodos();
-  //   decrease items left
   listTotal--;
   itemsLeft.innerText = `${listTotal} items left`;
 });
 
-// clear completed button is clicked remove items
+// when clear completed button is clicked, remove items
 
 clear.addEventListener("click", () => {
   const newList = [...list.children];
@@ -124,6 +123,8 @@ active.forEach((element) => {
   });
 });
 
+// When completed button is clicked show completed items
+
 completed.forEach((element) => {
   element.addEventListener("click", () => {
     const newList = [...list.children];
@@ -153,6 +154,34 @@ toggle.addEventListener("click", () => {
   } else {
     body.classList.toggle("dark-mode");
   }
+});
+
+// drag & drop
+
+let sortable = new Sortable(list, {
+  animation: 100,
+  draggable: ".list-item",
+  dragClass: ".dragging",
+  onSort: () => {
+    let items = [...list.children];
+    let results = [];
+    let localStorageBefore = loadTodos();
+    let localStorageAfter = [];
+
+    items.forEach((item) => results.push(item.dataset.todoId));
+    results.forEach((result) => {
+      let found = false;
+      localStorageBefore.forEach((item, index) => {
+        if (found) return;
+        if (item.id == result) {
+          localStorageAfter.push(item);
+          localStorageBefore.splice(index, 1);
+          found = true;
+        }
+      });
+    });
+    localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(localStorageAfter));
+  },
 });
 
 // Insert listItems into DOM
