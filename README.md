@@ -10,7 +10,6 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
 
@@ -47,13 +46,12 @@ Users should be able to:
 
 There were a number of challenges to tackle in this small application, however the main ones for myself were using local storage to save any changes made to the todo list, and using drag and drop to reorder the list. I originally looked into the drag and drop api and learned about how to use events such as dragstart, dragover and dragend. However, I discovered Sortable JS library which made the drag & drop far easier to work with, so I used this in the end.
 
-### Continued development
-
-As localstorage and drag and drop were two new things I was trying to dive into for this project, I decided to not focus on the gradient border, I know with this I would have to use a span as background or overlay on the checkbox and style it so that it appears when I hover over the list item or checkbox.
+As a bonus, I also learned how to create a linear-gradient border. There isn't a simple way to do this as you can not add this to kind of styling to checkboxes, instead I had to use a span as a background on top of another to make it appear as if there is a border.
 
 ### Useful resources
 
 - [SortableJS](https://github.com/SortableJS/Sortable)
+- [CSS Tricks](https://css-tricks.com/gradient-borders-in-css/)
 
 ## Author
 
