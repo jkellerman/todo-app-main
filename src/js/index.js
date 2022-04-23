@@ -7,16 +7,17 @@ const todoInput = document.querySelector("#todo-input");
 const list = document.getElementById("list");
 const LOCAL_STORAGE_PREFIX = "FE_TODO_LIST";
 const TODOS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-todos`;
+const THEME_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}-theme`;
 const all = document.querySelectorAll(".all-btn");
 const active = document.querySelectorAll(".active-btn");
 const completed = document.querySelectorAll(".completed-btn");
 const clear = document.querySelector("#clear");
 const itemsLeft = document.querySelector("[data-items-left]");
 const toggle = document.querySelector(".toggle");
+const body = document.querySelector("body");
 const listItems = [];
 
 // ==========  On page reload
-
 let todos = loadTodos();
 todos.forEach((todo) => {
   createTodo(todo);
@@ -24,8 +25,51 @@ todos.forEach((todo) => {
 });
 
 itemsLeft.innerText = `${todos.length} items left`;
-
 //  ==========================
+
+// Switch theme
+
+let theme = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY)) || "";
+if (theme == JSON.parse(localStorage.getItem(THEME_STORAGE_KEY))) {
+  body.classList.add(`${theme}-mode`);
+} else {
+  body.classList.remove(`${theme}-mode`);
+}
+
+toggle.addEventListener("click", () => {
+  const body = document.querySelector("body");
+  if (window.matchMedia("(prefers-color-scheme:dark)").matches) {
+    body.classList.toggle("light-mode");
+    if (body.classList.contains("light-mode")) {
+      theme = "light";
+      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+    } else {
+      theme = "";
+      localStorage.removeItem(THEME_STORAGE_KEY);
+      body.classList.remove("light-mode");
+    }
+  } else if (window.matchMedia("(prefers-color-scheme:light)").matches) {
+    body.classList.toggle("dark-mode");
+    if (body.classList.contains("dark-mode")) {
+      theme = "dark";
+      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+    } else {
+      theme = "";
+      localStorage.removeItem(THEME_STORAGE_KEY);
+      body.classList.remove("dark-mode");
+    }
+  } else {
+    body.classList.toggle("dark-mode");
+    if (body.classList.contains("dark-mode")) {
+      theme = "dark";
+      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+    } else {
+      theme = "";
+      localStorage.removeItem(THEME_STORAGE_KEY);
+      body.classList.remove("dark-mode");
+    }
+  }
+});
 
 // Submit new todo
 form.addEventListener("submit", (e) => {
@@ -48,7 +92,6 @@ form.addEventListener("submit", (e) => {
 });
 
 // detect change when checkbox is checked
-
 list.addEventListener("change", (e) => {
   if (!e.target.matches("[data-list-item-checkbox]")) return;
   const parent = e.target.closest(".list-item");
@@ -59,8 +102,7 @@ list.addEventListener("change", (e) => {
   saveTodos();
 });
 
-//  Delete items when button is clicked
-
+//  Delete items when buttons are clicked
 list.addEventListener("click", (e) => {
   if (!e.target.matches(".delete-btn")) return;
   let listTotal = list.children.length;
@@ -74,7 +116,6 @@ list.addEventListener("click", (e) => {
 });
 
 // when clear completed button is clicked, remove items
-
 clear.addEventListener("click", () => {
   const newList = [...list.children];
 
@@ -92,7 +133,6 @@ clear.addEventListener("click", () => {
 });
 
 // When all button is clicked, show all items
-
 all.forEach((element) => {
   element.addEventListener("click", () => {
     const newList = [...list.children];
@@ -106,7 +146,6 @@ all.forEach((element) => {
 });
 
 // When active button is clicked show active items
-
 active.forEach((element) => {
   element.addEventListener("click", () => {
     const newList = [...list.children];
@@ -124,7 +163,6 @@ active.forEach((element) => {
 });
 
 // When completed button is clicked show completed items
-
 completed.forEach((element) => {
   element.addEventListener("click", () => {
     const newList = [...list.children];
@@ -141,23 +179,7 @@ completed.forEach((element) => {
   });
 });
 
-// Switch theme
-
-toggle.addEventListener("click", () => {
-  const body = document.querySelector("body");
-  if (window.matchMedia("(prefers-color-scheme:dark)").matches) {
-    body.classList.remove("dark-mode");
-    body.classList.toggle("light-mode");
-  } else if (window.matchMedia("(prefers-color-scheme:light)").matches) {
-    body.classList.remove("light-mode");
-    body.classList.toggle("dark-mode");
-  } else {
-    body.classList.toggle("dark-mode");
-  }
-});
-
-// drag & drop
-
+// drag & drop (sortableJS)
 let sortable = new Sortable(list, {
   animation: 100,
   draggable: ".list-item",
@@ -184,7 +206,6 @@ let sortable = new Sortable(list, {
 });
 
 // Insert listItems into DOM
-
 function createTodo(todo) {
   const listItem = document.createElement("li");
   listItem.classList.add("list-item");
