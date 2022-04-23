@@ -48,11 +48,15 @@
   }
 
   .list-item-text:hover::before {
-    border: none;
+    @include a.tablet {
+      border: none;
+    }
   }
 
   .checkbox-foreground {
-    background: var(--Dark-theme-list-background);
+    @include a.tablet {
+      background: var(--Dark-theme-list-background);
+    }
   }
 
   input[type="checkbox"]:checked + .list-item-text {
@@ -119,7 +123,9 @@
   }
 
   .list-item-text:hover::before {
-    border: none;
+    @include a.tablet {
+      border: none;
+    }
   }
 
   .list-item {
