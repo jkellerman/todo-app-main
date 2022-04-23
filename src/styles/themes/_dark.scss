@@ -47,6 +47,10 @@
     color: var(--Dark-theme-list-text);
   }
 
+  .list-item-text:hover::before {
+    border-color: var(--Dark-theme-list-text);
+  }
+
   input[type="checkbox"]:checked + .list-item-text {
     color: var(--Dark-theme-checked-text);
     text-decoration: line-through;
