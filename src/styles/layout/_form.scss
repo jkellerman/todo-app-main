@@ -24,6 +24,7 @@ main {
   margin-bottom: 1rem;
   color: var(--Light-theme-list-text);
   padding-left: 52px;
+
   @include a.tablet {
     padding: 1.5rem;
     padding-left: 55px;

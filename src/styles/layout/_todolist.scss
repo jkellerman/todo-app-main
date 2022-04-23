@@ -4,6 +4,10 @@
   list-style: none;
 }
 
+.list-item {
+  transition: 0.5 ease-in;
+}
+
 .list-item-label {
   display: flex;
   align-items: center;
@@ -112,6 +116,7 @@ input[type="checkbox"]:checked + .list-item-text::after {
 
 .todo-container {
   box-shadow: 0px 20px 20px 0px var(--Light-theme-border-color);
+
   @include a.tablet {
     margin-bottom: 3.125rem;
   }
