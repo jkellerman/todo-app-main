@@ -161,7 +161,6 @@ toggle.addEventListener("click", () => {
 let sortable = new Sortable(list, {
   animation: 100,
   draggable: ".list-item",
-  dragClass: ".dragging",
   onSort: () => {
     let items = [...list.children];
     let results = [];
@@ -212,7 +211,4 @@ function saveTodos() {
 function loadTodos() {
   const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [...sampleTodos];
-}
-function removeTodos() {
-  const todosString = localStorage.removeItem(TODOS_STORAGE_KEY);
 }
