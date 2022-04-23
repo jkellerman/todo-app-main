@@ -37,35 +37,34 @@ if (theme == JSON.parse(localStorage.getItem(THEME_STORAGE_KEY))) {
 }
 
 toggle.addEventListener("click", () => {
-  const body = document.querySelector("body");
   if (window.matchMedia("(prefers-color-scheme:dark)").matches) {
     body.classList.toggle("light-mode");
     if (body.classList.contains("light-mode")) {
       theme = "light";
-      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+      saveTheme();
     } else {
       theme = "";
-      localStorage.removeItem(THEME_STORAGE_KEY);
+      removeTheme();
       body.classList.remove("light-mode");
     }
   } else if (window.matchMedia("(prefers-color-scheme:light)").matches) {
     body.classList.toggle("dark-mode");
     if (body.classList.contains("dark-mode")) {
       theme = "dark";
-      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+      saveTheme();
     } else {
       theme = "";
-      localStorage.removeItem(THEME_STORAGE_KEY);
+      removeTheme();
       body.classList.remove("dark-mode");
     }
   } else {
     body.classList.toggle("dark-mode");
     if (body.classList.contains("dark-mode")) {
       theme = "dark";
-      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+      saveTheme();
     } else {
       theme = "";
-      localStorage.removeItem(THEME_STORAGE_KEY);
+      removeTheme();
       body.classList.remove("dark-mode");
     }
   }
@@ -232,4 +231,12 @@ function saveTodos() {
 function loadTodos() {
   const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [...sampleTodos];
+}
+
+function saveTheme() {
+  localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+}
+
+function removeTheme() {
+  localStorage.removeItem(THEME_STORAGE_KEY);
 }
