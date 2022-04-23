@@ -46,8 +46,33 @@
   }
 }
 
+.checkbox-background {
+  height: 22px;
+  width: 22px;
+  background: var(--Check-Background);
+  position: absolute;
+  top: -0.3rem;
+  left: -0.05rem;
+  border-radius: 50%;
+  display: none;
+}
+
+.checkbox-foreground {
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  position: absolute;
+  top: -0.25rem;
+  left: 0;
+  border-radius: 50%;
+}
+
 .list-item-text:hover::before {
-  border-color: var(--Light-theme-list-text);
+  border: none;
+}
+
+.list-item-text:hover + .checkbox-background {
+  display: block;
 }
 
 input[type="checkbox"] {

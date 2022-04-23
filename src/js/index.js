@@ -216,6 +216,8 @@ function createTodo(todo) {
             <span class="list-item-text" data-list-item-text
               >${todo.text}</span
             >
+            <span class="checkbox-background"></span>
+            <span class="checkbox-foreground"></span>
           </label>
           <button class="delete-btn">
           </button>`;

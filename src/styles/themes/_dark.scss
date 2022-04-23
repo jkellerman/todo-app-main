@@ -48,7 +48,11 @@
   }
 
   .list-item-text:hover::before {
-    border-color: var(--Dark-theme-list-text);
+    border: none;
+  }
+
+  .checkbox-foreground {
+    background: var(--Dark-theme-list-background);
   }
 
   input[type="checkbox"]:checked + .list-item-text {
@@ -114,6 +118,10 @@
     border: 1px solid var(--Dark-theme-border-color);
   }
 
+  .list-item-text:hover::before {
+    border: none;
+  }
+
   .list-item {
     background-color: var(--Dark-theme-list-background);
     border-bottom: 1px solid var(--Dark-theme-border-color);
@@ -121,6 +129,10 @@
 
   .list-item-text {
     color: var(--Dark-theme-list-text);
+  }
+
+  .checkbox-foreground {
+    background: var(--Dark-theme-list-background);
   }
 
   input[type="checkbox"]:checked + .list-item-text {
