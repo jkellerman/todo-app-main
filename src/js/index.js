@@ -219,7 +219,7 @@ function createTodo(todo) {
             <span class="checkbox-background"></span>
             <span class="checkbox-foreground"></span>
           </label>
-          <button class="delete-btn">
+          <button aria-label="Close" class="delete-btn">
           </button>`;
   listItems.push(listItem);
   list.appendChild(listItem);
