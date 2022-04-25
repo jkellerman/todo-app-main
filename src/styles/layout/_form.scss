@@ -21,7 +21,7 @@ main {
 #todo-input {
   width: 100%;
   font-family: inherit;
-  padding: 1rem 1.25rem;
+  padding: 1.75rem 1.25rem;
   border-radius: 5px;
   border: none;
   outline: none;
@@ -52,7 +52,7 @@ main {
   border: 1px solid var(--Light-theme-border-color);
   border-radius: 50%;
   left: 1.2rem;
-  top: 0.75rem;
+  top: 1.5rem;
   @include a.tablet {
     left: 1.45rem;
     top: 1.4rem;
