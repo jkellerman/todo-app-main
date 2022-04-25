@@ -28,6 +28,7 @@ main {
   margin-bottom: 1rem;
   color: var(--Light-theme-list-text);
   padding-left: 52px;
+  font-size: 1rem;
 
   @include a.tablet {
     padding: 1.5rem;
@@ -37,7 +38,7 @@ main {
 }
 
 #todo-input::placeholder {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--Light-theme-text);
   @include a.tablet {
     font-size: 1.125rem;
@@ -52,7 +53,7 @@ main {
   border: 1px solid var(--Light-theme-border-color);
   border-radius: 50%;
   left: 1.2rem;
-  top: 1.5rem;
+  top: 1.6rem;
   @include a.tablet {
     left: 1.45rem;
     top: 1.4rem;
