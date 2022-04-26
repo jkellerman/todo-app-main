@@ -47,17 +47,7 @@ toggle.addEventListener("click", () => {
       removeTheme();
       body.classList.remove("light-mode");
     }
-  } else if (window.matchMedia("(prefers-color-scheme:light)").matches) {
-    body.classList.toggle("dark-mode");
-    if (body.classList.contains("dark-mode")) {
-      theme = "dark";
-      saveTheme();
-    } else {
-      theme = "";
-      removeTheme();
-      body.classList.remove("dark-mode");
-    }
-  } else {
+  } else if (!window.matchMedia("(prefers-color-scheme:dark)").matches) {
     body.classList.toggle("dark-mode");
     if (body.classList.contains("dark-mode")) {
       theme = "dark";
