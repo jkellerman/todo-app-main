@@ -19,7 +19,7 @@ const listItems = [];
 
 // ==========  On page reload
 let todos = loadTodos();
-todos.forEach((todo) => {
+todos.map((todo) => {
   createTodo(todo);
   saveTodos();
 });
