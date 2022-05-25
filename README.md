@@ -40,19 +40,17 @@ Users should be able to:
 
 - Semantic HTML5 markup
 - SCSS
-- Vanilla JavaScript
+- JavaScript
 
 ### What I learned
 
-There were a number of challenges to tackle in this small application, however the main ones for myself were using local storage to save any changes made to the todo list, and using drag and drop to reorder the list. I originally looked into the drag and drop api and learned about how to use events such as dragstart, dragover and dragend. However, I discovered Sortable JS library which made the drag & drop far easier to work with, so I used this in the end.
+There were a number of challenges to tackle in this small application, however the main ones were using local storage to save any changes made to the todo list including whether a todo is checked, added, deleted or reordered. I originally looked into the drag and drop api for reordering lists and learned about how to use events such as dragstart, dragover and dragend. However, I discovered Sortable JS library which made the drag & drop far easier to work with, so I resorted to this method.
 
-As a bonus, I also learned how to create a linear-gradient border. There isn't a simple way to do this as you can not add this to kind of styling to checkboxes, instead I had to use a span as a background on top of another to make it appear as if there is a border.
+For the theme switching, I used 'prefers-color-scheme' in my scss files so that dark or light theme is automatically rendered on the users first visit to the page if they have color scheme preferences set on their browser. If they don't, it will render the light theme and the user will be able to switch to their preferred theme which will then be saved to local storage.
+
+As a bonus, I also learned how to create a linear-gradient border for each checkbox. There isn't a simple way to do this as you can not add this kind of styling to checkboxes. Instead, I used a span as a background on top of another to make it appear as if there is a border, all while making sure it complied with accessibility standards.
 
 ### Useful resources
 
 - [SortableJS](https://github.com/SortableJS/Sortable)
 - [CSS Tricks](https://css-tricks.com/gradient-borders-in-css/)
-
-## Author
-
-Josh Kellerman - Website coming soon
